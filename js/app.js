@@ -81,8 +81,6 @@ function cardCount() {
     checkMatch();
     $('li').removeClass('card open show').addClass('card');
     openCardCount = 0;
-  } else {
-    moveCounter();
   }
 }
 
