@@ -1,15 +1,17 @@
 // * Create a list that holds all of your cards
 // */
-
-var cardList = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
+function buildDeck () {
+const cardList = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
 shuffle(cardList);
 //document.getElementById('arraytest').innerHTML=cardList;
 
-for (var i = 0; i < cardList.length; i++) {
+for (let i = 0; i < cardList.length; i++) {
   //document.getElementById('arraytest').innerHTML+=i;
   $(".deck").append('<li class="card"><i></i></li>');
   $("body").find('i:last').addClass(cardList[i]);
 }
+}
+buildDeck ();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -19,7 +21,7 @@ for (var i = 0; i < cardList.length; i++) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
     temporaryValue, randomIndex;
 
   while (currentIndex !== 0) {
@@ -45,29 +47,34 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-var openCardCount = 0;
-var timeoutID;
-var moves = 0;
-var stars = 3;
-var score = 0;
-var totalMatches = 0;
 
+let openCardCount = 0;
+let moves = 0;
+let stars = 3;
+let totalMatches = 0;
+
+//Open cards when clicked
 $("li.card").click(function() {
+  //let timeoutID;
   if (moves === 0) {
     timer();
   }
-  if (openCardCount < 2) {
+  if(this.className!=="card open show"){
+    if (openCardCount < 2) {
     $(this).removeClass("card");
     $(this).addClass("card open show");
     openCardCount = openCardCount + 1;
-    timeoutID = window.setTimeout(cardCount, 2000);
+    let timeoutID = window.setTimeout(cardCount, 1500);
+    }
   }
 });
 
+//Restart game on click
 $(".fa-repeat").click(function() {
   restartGame();
 });
 
+//Count open cards and total moves
 function cardCount() {
   if (openCardCount === 2) {
     moveCounter();
@@ -79,11 +86,12 @@ function cardCount() {
   }
 }
 
+//Check if cards match and counts total matches
 function checkMatch() {
-  var deck = document.querySelector('.deck');
-  var openCard = deck.querySelectorAll('.show > i');
-  var x = openCard[0].className;
-  var y = openCard[1].className;
+  let deck = document.querySelector('.deck');
+  let openCard = deck.querySelectorAll('.show > i');
+  let x = openCard[0].className;
+  let y = openCard[1].className;
 
   if (x === y) {
     $(".open").removeClass("open");
@@ -93,24 +101,26 @@ function checkMatch() {
   }
 }
 
+//Counts total moves and changes stars rating based on the total moves
 function moveCounter() {
   moves += 1;
   moveField = document.getElementsByClassName("moves");
   moveField[0].innerHTML = moves;
 
   if (moves === 16) {
-    var starList = document.querySelectorAll('.fa-star');
-    var star1 = starList[2];
+    let starList = document.querySelectorAll('.fa-star');
+    let star1 = starList[2];
     star1.style.color = "black";
     stars--
   } else if (moves === 24) {
-    var starList = document.querySelectorAll('.fa-star');
-    var star2 = starList[1];
+    let starList = document.querySelectorAll('.fa-star');
+    let star2 = starList[1];
     star2.style.color = "black";
     stars--
   }
 }
 
+//Show modal box when game completed
 function gameCompleted() {
   if (totalMatches === 8) {
     stopTimer();
@@ -125,28 +135,12 @@ function gameCompleted() {
   }
 }
 
+//Reload game
 function restartGame() {
   location.reload();
 }
 
-//Alternative restart
-// $(".deck li" ).remove();
-// openCardCount=0;
-// moves = 0;
-// moveField = document.getElementsByClassName("moves");
-// moveField[0].innerHTML = moves;
-// stars = 3;
-// totalMatches = 0;
-// //timeoutID;
-// //$('.match').removeClass('match');
-// shuffle(cardList);
-// for (var i=0; i<cardList.length;i++){
-//    $( ".deck" ).append( '<li class="card"><i></i></li>');
-//    $("body").find('i:last').addClass(cardList[i]);
-//    newClick();
-// }
-
-
+//Timer
 let sec = 0;
 let dSec = 0;
 let min = 0;
@@ -198,16 +192,16 @@ function addSec() {
 
 
 // Get the modal
-var modal = document.getElementById('myModal');
+let modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+let btn = document.getElementById("myBtn");
 
 // Get the <span> element that closes the modal
-var close = document.getElementsByClassName("close")[0];
+let close = document.getElementsByClassName("close")[0];
 
 //Get the restart button
-var restartBtn = document.getElementById("restartButton");
+let restartBtn = document.getElementById("restartButton");
 
 // When the user clicks on <span> (x), close the modal
 close.onclick = function() {

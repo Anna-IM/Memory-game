@@ -1,0 +1,17 @@
+//Alternative restart
+// $(".deck li" ).remove();
+// openCardCount=0;
+// moves = 0;
+// moveField = document.getElementsByClassName("moves");
+// moveField[0].innerHTML = moves;
+// stars = 3;
+// totalMatches = 0;
+// //timeoutID;
+// //$('.match').removeClass('match');
+// shuffle(cardList);
+// for (var i=0; i<cardList.length;i++){
+//    $( ".deck" ).append( '<li class="card"><i></i></li>');
+//    $("body").find('i:last').addClass(cardList[i]);
+//    newClick();
+// }
+
